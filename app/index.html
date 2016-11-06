@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Angular Material - Starter App</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>-->
+  <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="./assets/styles.css">
+  <link rel="stylesheet" href="./assets/fonts.css">
+  <link rel="stylesheet" href="assets/app.css" />
+
+  <style type="text/css">
+    /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+    
+    [ng\:cloak],
+    [ng-cloak],
+    [data-ng-cloak],
+    [x-ng-cloak],
+    .ng-cloak,
+    .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+
+</head>
+
+<body ng-app="starterApp" layout="column" ng-controller="AppController as app" ng-cloak>
+
+
+  <div flex layout="row">
+
+    <md-sidenav class="side-left" md-colors="{background: 'primary-500',color: 'primary-50' }" md-is-locked-open="$mdMedia('gt-xs')"
+      md-component-id="left">
+
+      <md-content flex layout="column" md-colors="{background: 'primary-500',color: 'primary-50' }">
+
+        <div class="user-card" ng-controller="AccountController as account">
+          <img src="{{account.image}}" class=" user-avatar">
+          <span class="user-name">{{account.name}}</span>
+        </div>
+
+        <md-list flex class="projects">
+          <div class="project-plus">
+            <p>Projects</p>
+            <p><i data-icons8="&#xf109;" ng-click="app.addNewProject()"></i></p>
+          </div>
+
+          <ul class="project-list"  ng-controller="ProjectsController as projects">
+            <li class="project-item" ng-repeat="project in projects.projects">
+              <span>{{project.title}}</span>
+              <span>{{project.task_count}}</span>
+            </li>
+          </ul>
+
+
+          <a href="#" class="logout">log out</a>
+
+        </md-list>
+
+      </md-content>
+    </md-sidenav>
+
+    <md-content flex layout="column" id="content">
+
+      <md-toolbar md-colors="{background: 'primary-100',color: 'primary-500' }">
+        <div class="md-toolbar-tools">
+          <md-icon md-font-icon="icons8-search"></md-icon>
+          <span flex></span>
+          <md-icon md-font-icon="icons8-more"></md-icon>
+        </div>
+      </md-toolbar>
+
+      <md-content flex layout="row" class="tasks" md-colors="{background: 'primary-100',color: 'primary-500' }">
+
+        <div flex-gt-xs="20" flex="0"></div>
+
+        <div flex-gt-xs="60" flex="100" class="empty-task" ng-if="!app.visible_empty">
+          <i class="icons8-todo-list"></i>
+          <span>Have a good day</span>
+        </div>
+
+        <md-list flex-gt-xs="60" flex="100" class="tasks-list" ng-if="app.visible_empty" ng-controller="TasksController as tasks">
+          <div class="wrap">
+            <div class="tasks-item" ng-repeat="task in tasks.allTasks">
+              <md-subheader class="md-no-sticky tasks-subheader" md-colors="{background: 'primary-100'}">
+                {{task.created_at | format_date}}
+              </md-subheader>
+              <div class="tasks-group-item md-whiteframe-6dp">
+                <md-list-item ng-disabled="true">
+                  <md-checkbox class="tasks-check"></md-checkbox>
+                  <span class="tasks-text">{{task.title}}</span>
+                </md-list-item>
+              </div>
+            </div>
+
+          </div>
+
+        </md-list>
+
+        <div flex-gt-xs="20" flex="0"></div>
+
+      </md-content>
+
+      <md-button class="md-fab md-accent btn-add-task" aria-label="Use Android">
+        <md-icon md-font-icon="icons8-plus"></md-icon>
+      </md-button>
+
+    </md-content>
+
+    <md-sidenav  class="side-right" md-colors="{background: 'primary-500',color: 'primary-50'}" md-is-locked-open="$mdMedia('gt-lg')"
+      md-component-id="right">
+
+      <md-content flex layout="column" md-colors="{background: 'primary-500',color: 'primary-50'}" ng-controller="RightCtrl as right">
+        <h3>Create new task</h3>
+        <form class="new-task-form">
+          <md-input-container class="input-container">
+            <label for="taskname">Task name</label>
+            <input type="text" id="taskname" md-autofocus>
+          </md-input-container>
+          <md-input-container class="input-container">
+            <label for="description">Description</label>
+            <input type="text" id="description">
+          </md-input-container>
+        </form>
+
+        <h3> Create new project</h3>
+        <form class="new-task-form">
+          <md-input-container class="input-container">
+            <label for="projectname">Project name</label>
+            <input type="text" id="projectname" md-autofocus>
+          </md-input-container>
+        </form>
+
+        <h3>Call in barber shop</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+          aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+      </md-content>
+
+      <md-button md-no-ink class="btn-close-right">
+        <md-icon md-font-icon="icons8-delete-2"></md-icon>
+        <span>ESC</span>
+      </md-button>
+
+
+      <md-button md-no-ink class="btn-delete-task">
+        <md-icon md-font-icon="icons8-delete"></md-icon>
+      </md-button>
+      <md-button md-no-ink class="btn-edit-task">
+        <md-icon md-font-icon="icons8-edit"></md-icon>
+      </md-button>
+
+      <md-button class="md-fab md-accent btn-submit" aria-label="Use Android">
+        <md-icon md-font-icon="icons8-checkmark"></md-icon>
+      </md-button>
+    </md-sidenav>
+
+
+  </div>
+
+  <script src="../node_modules/angular/angular.js"></script>
+  <script src="../node_modules/angular-animate/angular-animate.js"></script>
+  <script src="../node_modules/angular-aria/angular-aria.js"></script>
+  <script src="../node_modules/angular-cookies/angular-cookies.js"></script>
+  <script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+  <script src="../node_modules/moment/moment.js"></script>
+
+  <!--<script src="./src/users/Users.js"></script>
+  <script src="./src/users/UserController.js"></script>
+  <script src="./src/users/UserService.js"></script>-->
+
+  <script src="./src/App.js"></script>
+  <script src="./src/AppController.js"></script>
+
+  <script src="./src/account/Account.js"></script>
+  <script src="./src/account/AccountController.js"></script>
+  <script src="./src/account/AccountService.js"></script>
+
+  <script src="./src/projects/Projects.js"></script>
+  <script src="./src/projects/ProjectsController.js"></script>
+  <script src="./src/projects/ProjectsService.js"></script>
+
+  <script src="./src/tasks/Tasks.js"></script>
+  <script src="./src/tasks/TasksController.js"></script>
+  <script src="./src/tasks/TasksService.js"></script>
+  <script src="./src/tasks/TaskFilter.js"></script>
+  <script type="text/javascript">
+
+          angular
+              .module('starterApp', [
+                'ngMaterial', 
+                'app', 
+                'account', 
+                'projects',
+                'tasks'
+                ])
+                 .config(($mdIconProvider, $mdThemingProvider) => {
+        // Register the user `avatar` icons
+        $mdIconProvider
+            .defaultIconSet("./assets/svg/avatars.svg", 128)
+            .icon("menu", "./assets/svg/menu.svg", 24)
+            .icon("share", "./assets/svg/share.svg", 24)
+            .icon("google_plus", "./assets/svg/google_plus.svg", 24)
+            .icon("hangouts", "./assets/svg/hangouts.svg", 24)
+            .icon("twitter", "./assets/svg/twitter.svg", 24)
+            .icon("phone", "./assets/svg/phone.svg", 24);
+
+        $mdThemingProvider.definePalette('app-palette', {
+            '50'                  : '#fff',
+            '100'                 : '#f7f7f7',
+            '200'                 : '#646b7c',
+            '300'                 : '#444955',
+            '400'                 : '#373b44',
+            '500'                 : '#292c33',
+            '600'                 : '#1b1d22',
+            '700'                 : '#0e0f11',
+            '800'                 : '#000000',
+            '900'                 : '#000000',
+            'A100'                : '#aaafbb',
+            'A200'                : '#808799',
+            'A400'                : '#373b44',
+            'A700'                : '#0e0f11',
+            'contrastDefaultColor': 'light',
+            'contrastDarkColors'  : '50 100 A100 A200'
+        });
+
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('app-palette', {})
+            .accentPalette('deep-purple')
+            .warnPalette('red')
+            .backgroundPalette('app-palette', {});
+    });
+
+    </script>
+
+</body>
+
+</html>

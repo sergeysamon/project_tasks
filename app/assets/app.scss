@@ -1,0 +1,342 @@
+
+[ng-cloak] {
+  display : none;
+}
+
+html, body {
+  font-family : 'SFUITextSemibold', sans-serif;
+  font-size   : 14px;
+  height      : 100%;
+  margin      : 0;
+  padding     : 0;
+}
+
+/*---------------*/
+//sidenav left
+/*---------------*/
+
+/* vars sidenav left */
+$width-left-side : 685px;
+
+.side-left {
+  width     : $width-left-side;
+  min-width : $width-left-side;
+  max-width : $width-left-side;
+  padding   : 35px 60px;
+}
+
+.user-card {
+  padding-left    : 20px;
+  margin-bottom   : 60px;
+  display         : flex;
+  justify-content : flex-start;
+  align-content   : center;
+  flex-direction  : row;
+  .user-avatar {
+    width         : 100px;
+    height: 100px;
+    border-radius : 50%;
+    box-shadow    : 0 0 0 3px #FFF;
+    padding       : 8px;
+    margin        : 3px 40px 3px 3px;
+  }
+  .user-name {
+    align-self : center;
+    font-size  : 30px;
+  }
+}
+
+.projects {
+
+  .project-plus {
+    margin-bottom   : 10px;
+    display         : flex;
+    justify-content : space-between;
+    align-content   : center;
+    flex-direction  : row;
+    p {
+      font-size   : 24px;
+      line-height : 28px;
+      color       : #B3BBCB;
+    }
+    p:first-child {
+      padding-left : 30px;
+    }
+    p:last-child {
+      padding-right : 30px;
+      font-weight   : bold;
+    }
+    i {
+      font-size : 30px;
+    }
+  ;
+  }
+
+  .project-list {
+    padding : 0;
+    margin  : 0;
+
+    .project-item {
+      display         : flex;
+      justify-content : space-between;
+      align-content   : center;
+      flex-direction  : row;
+      width           : 100%;
+      height          : 90px;
+      font-size       : 30px;
+      line-height     : 30px;
+      border-radius   : 6px;
+      transition      : background 0.4s;
+      &:hover {
+        background : #56567A;
+      }
+      span {
+        align-self  : center;
+        line-height : 30px;
+      }
+      span:first-child {
+        padding-left : 30px;
+      }
+      span:last-child {
+        padding-right : 30px;
+      }
+    }
+  }
+}
+
+.logout {
+  text-decoration : none;
+  font-size       : 24px;
+  color           : white;
+  position        : absolute;
+  bottom          : 0;
+  left            : 30px;
+}
+
+/*---------------*/
+//content
+/*---------------*/
+
+.tasks-list {
+  overflow : hidden;
+}
+
+.wrap {
+  width         : 100%;
+  height        : 100%;
+  overflow-y    : scroll;
+  padding-right : 35px;
+}
+
+.icons8-search,
+.icons8-more,
+.icons8-plus {
+  color     : #B3BBCB !important;
+  font-size : 45px !important;
+  //width : 45px;
+  //height : 45px;
+}
+
+.tasks-item {
+  border-radius    : 15px;
+  background-color : #FFF;
+}
+
+.tasks-subheader {
+  margin-top : 40px;
+  color      : #B3BBCB !important;
+  //background : transparent !important;
+}
+
+.md-subheader-content {
+  font-size : 30px;
+}
+
+.tasks-text {
+  line-height : 120px;
+  font-size   : 24px;
+  margin-left : 30px;
+
+  &:before {
+    content    : '';
+    height     : 80px;
+    width      : 2px;
+    background : #BDBDBD;
+    position   : absolute;
+    left       : 120px;
+    top        : 20px;
+  }
+}
+
+.tasks-check {
+  margin-left  : 40px !important;
+  margin-right : 40px !important;
+
+  .md-icon {
+    border-radius : 50%;
+    border        : 6px solid #BDBDBD;
+    width         : 40px;
+    height        : 40px;
+    margin-top    : -10px;
+  }
+}
+
+md-checkbox.md-checked .md-icon:after {
+  box-sizing        : border-box;
+  -webkit-transform : rotate(45deg);
+  transform         : rotate(45deg);
+  position          : absolute;
+  left              : 8px;
+  top               : 0;
+  display           : table;
+  width             : 13px;
+  height            : 23px;
+  border-width      : 5px;
+  border-style      : solid;
+  border-top        : 0;
+  border-left       : 0;
+  content           : '';
+}
+
+.tasks-group-item {
+  border-radius : 15px;
+  md-list-item:not(:last-child):after {
+    //border-bottom : 2px solid #BDBDBD;
+    content    : '';
+    width      : 90%;
+    height     : 2px;
+    background : #BDBDBD;
+    position   : absolute;
+    bottom     : 0;
+    left       : 4%;
+  }
+}
+
+.empty-task {
+  display         : flex;
+  justify-content : center;
+  align-content   : center;
+  flex-direction  : column;
+  text-align      : center;
+  i {
+    font-size : 370px;
+    color     : #B1B1C8;
+    //display   : block;
+  }
+  span {
+    font-size   : 48px;
+    font-family : 'SFUITextMedium', sans-serif;
+    color       : #B1B1C8;
+  }
+}
+
+/*---------------*/
+//sidenav right
+/*---------------*/
+$width-right-side : 1000px;
+
+.side-right {
+  padding-top : 20px;
+  width       : $width-right-side;
+  min-width   : $width-right-side;
+  max-width   : $width-right-side;
+  text-align  : center;
+  h3 {
+    font-size   : 36px;
+    font-family : 'SFUITextMedium', sans-serif;
+    color       : white;
+  }
+  p {
+    margin      : 0 auto;
+    color       : white;
+    font-size   : 24px;
+    line-height : 44px;
+    max-width   : 680px;
+    text-align  : justify;
+    font-family : SFUIText, sans-serif;
+  }
+
+}
+
+.new-task-form {
+  display         : flex;
+  justify-content : center;
+  align-content   : center;
+  flex-direction  : column;
+  width           : 680px;
+  margin          : 0 auto;
+  text-align      : left;
+
+  label {
+    font-size   : 30px;
+    font-family : 'SFUIText', sans-serif;
+    color       : #F6F6F6 !important;
+  }
+  .input-container > input {
+    border-bottom : 3px solid #F6F6F6 !important;
+    color         : #F6F6F6;
+    font-size     : 30px;
+  }
+}
+
+// buttons style
+
+.btn-add-task,
+.btn-submit {
+  position : absolute;
+  right    : 60px;
+  bottom   : 60px;
+  width    : 100px !important;
+  height   : 100px !important;
+  md-icon::before {
+    line-height : 0.5;
+    font-size   : 60px;
+    color       : white;
+  }
+}
+
+.btn-close-right {
+  position        : absolute;
+  top             : 40px;
+  left            : 20px;
+  color           : white;
+  width           : 40px;
+  height          : 80px;
+  display         : flex;
+  justify-content : center;
+  align-content   : center;
+  flex-direction  : column;
+  md-icon::before {
+    line-height : 0.5;
+    font-size   : 50px;
+    color       : white;
+  }
+  span {
+    font-size : 18px;
+  }
+}
+
+.btn-edit-task,
+.btn-delete-task {
+  position : absolute;
+  top      : 50px;
+  width    : 40px;
+  height   : 40px;
+  &:hover md-icon::before {
+    color : white;
+  }
+  md-icon::before {
+    transition  : color 0.4s;
+    line-height : 0.5;
+    font-size   : 40px;
+    color       : #51555E;
+  }
+}
+
+.btn-edit-task {
+  right : 100px;
+}
+
+.btn-delete-task {
+  right : 30px;
+}

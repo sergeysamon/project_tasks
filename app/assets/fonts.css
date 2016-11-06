@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "SFUIText";
+    src: url("./fonts/SFUIText-Regular.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SFUITextSemibold";
+    src: url("./fonts/SFUIText-Semibold.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SFUITextMedium";
+    src: url("./fonts/SFUIText-Medium.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
