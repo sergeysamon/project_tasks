@@ -90,7 +90,7 @@
              $http({
                 url   : 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "DELETE",
-                data  : {
+                params  : {
                     session: $cookies.get('session'),
                     task_id: id
                 }
