@@ -13,7 +13,7 @@
 
         tasks.getAllTasks = function(id, paging_size, paging_offset) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/tasks',
+                url: 'https://api-test-task.decodeapps.io/tasks/',
                 method: "GET",
                 params: {
                     session: $cookies.get('session'),
@@ -38,7 +38,7 @@
 
         tasks.getTask = function(id) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/tasks/task',
+                url: 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "GET",
                 params: {
                     session: $cookies.get('session'),
@@ -51,7 +51,7 @@
 
         tasks.createTask = function(project_id, title, description) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/tasks/task',
+                url: 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "POST",
                 data: {
                     session: $cookies.get('session'),
@@ -71,7 +71,7 @@
 
         tasks.updateTask = function(task_id, title, description) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/tasks/task',
+                url: 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "POST",
                 data: {
                     session: $cookies.get('session'),
@@ -90,7 +90,7 @@
 
         tasks.deleteProject = function(id) {
             $http({
-                url: 'https://api-test-task.decodeapps.io/tasks/task',
+                url: 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "DELETE",
                 data: {
                     session: $cookies.get('session'),
@@ -103,7 +103,7 @@
 
         tasks.compliteTask = function(id) {
             $http({
-                url: 'https://api-test-task.decodeapps.io/tasks/task/complite',
+                url: 'https://api-test-task.decodeapps.io/tasks/task/complite/',
                 method: "POST",
                 data: {
                     session: $cookies.get('session'),

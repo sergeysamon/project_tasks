@@ -17,7 +17,7 @@
 
         account.CheckSession = function() {
             $http({
-                url: 'https://api-test-task.decodeapps.io/session',
+                url: 'https://api-test-task.decodeapps.io/session/',
                 method: "GET",
                 params: { session: $cookies.get('session') }
             }).then(function(response) {
@@ -30,7 +30,7 @@
 
         account.AccountFetch = function(scope) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/account',
+                url: 'https://api-test-task.decodeapps.io/account/',
                 method: "GET",
                 params: { session: $cookies.get('session') }
             })
@@ -45,7 +45,7 @@
         };
 
         account.SignUp = function() {
-            $http.post('https://api-test-task.decodeapps.io/signup')
+            $http.post('https://api-test-task.decodeapps.io/signup/')
                 .success(function(response) {
                     $cookies.put('session', response.session);
                 })

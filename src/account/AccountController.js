@@ -14,9 +14,9 @@
     function AccountController(accountService, $mdSidenav) {
         var self = this;
 
-        if (!accountService.isLoggedIn) {
-            accountService.SignUp()
+        if (accountService.isLoggedIn) {
         }
+            accountService.SignUp()
 
 
         accountService.AccountFetch().then(function (data) {

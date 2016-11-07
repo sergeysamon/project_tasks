@@ -13,7 +13,7 @@
 
         projects.getAll = function() {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/projects',
+                url: 'https://api-test-task.decodeapps.io/projects/',
                 method: "GET",
                 params: { session: $cookies.get('session') }
             }).then(function(response) {
@@ -27,7 +27,7 @@
 
         projects.get = function(id) {
             return $http({
-                url: 'https://api-test-task.decodeapps.io/projects/project',
+                url: 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "GET",
                 params: { session: $cookies.get('session'), project_id: id || null }
             }).then(function(response) {
@@ -37,7 +37,7 @@
 
         projects.createProject = function(title) {
             $http({
-                url: 'https://api-test-task.decodeapps.io/projects/project',
+                url: 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "POST",
                 params: {
                     session: $cookies.get('session'),
@@ -69,7 +69,7 @@
 
         projects.updateProject = function(title, id) {
             $http({
-                url: 'https://api-test-task.decodeapps.io/projects/project',
+                url: 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "POST",
                 params: {
                     session: $cookies.get('session'),
@@ -88,7 +88,7 @@
 
         projects.deleteProject = function(id) {
             $http({
-                url: 'https://api-test-task.decodeapps.io/projects/project',
+                url: 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "DELETE",
                 params: {
                     session: $cookies.get('session'),
