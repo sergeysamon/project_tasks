@@ -87,30 +87,31 @@
 
 
         tasks.deleteTask = function (id) {
-             $http({
+            return $http({
                 url   : 'https://api-test-task.decodeapps.io/tasks/task/',
                 method: "DELETE",
-                params  : {
+                params: {
                     session: $cookies.get('session'),
                     task_id: id
                 }
+            }).then(function (response) {
+                return true;
             })
-            //     .then(function (response) {
-            //     return true;
-            // })
         };
 
 
         tasks.compliteTask = function (id) {
-            $http({
+            return $http({
                 url   : 'https://api-test-task.decodeapps.io/tasks/task/complite/',
                 method: "POST",
                 data  : {
                     session: $cookies.get('session'),
                     task_id: id
                 }
+            }).then(function (response) {
+                return true;
             })
-        }
+        };
 
         return tasks;
     }

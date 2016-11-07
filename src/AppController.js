@@ -129,16 +129,15 @@
 
         $scope.$on('deleteTask', function (event, data) {
 
-            console.log(data)
+            // console.log(data);
             tasksService.deleteTask(data)
-            self.getProjects();
-            self.showTasksProject(self.selectedProject);
-            // .then(function (isDeleted) {
-            //     if(isDeleted){
+                .then(function (isDeleted) {
+                    if (isDeleted) {
+                        self.getProjects();
+                        self.showTasksProject(self.selectedProject);
+                    }
 
-            //     }
-            //
-            // })
+                })
 
 
         });
