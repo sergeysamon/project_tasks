@@ -15,9 +15,9 @@
     var self = this;
 
 
-    projectsService.getAll().then(function (data) {
-      self.projects = data
-    });
+    // projectsService.getAll().then(function (data) {
+    //   self.projects = data
+    // });
 
     // projectsService.get(6971).then(function (data) {
     //     self.project = data

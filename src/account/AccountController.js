@@ -12,18 +12,18 @@
         ]);
 
     function AccountController(accountService, $mdSidenav) {
-        var self = this;
-
-        if (accountService.isLoggedIn) {
-        }
-            accountService.SignUp()
-
-
-        accountService.AccountFetch().then(function (data) {
-
-            self.name = data.username;
-            self.image = data.image_url;
-        })
+        // var self = this;
+        //
+        // if (accountService.isLoggedIn) {
+        //     accountService.SignUp()
+        // }
+        //
+        //
+        // accountService.AccountFetch().then(function (data) {
+        //
+        //     self.name = data.username;
+        //     self.image = data.image_url;
+        // })
 
     }
 
