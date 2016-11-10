@@ -11,38 +11,42 @@ html, body {
   padding     : 0;
 }
 
+*, *:focus, *:hover {
+  outline : none;
+}
+
 /*---------------*/
 //sidenav left
 /*---------------*/
 
 /* vars sidenav left */
-$width-left-side : 685px;
+//$width-left-side : 685px;
 
 .side-left {
-  width     : $width-left-side;
-  min-width : $width-left-side;
-  max-width : $width-left-side;
-  padding   : 35px 60px;
+  //width     : $width-left-side;
+  //min-width : $width-left-side;
+  //max-width : $width-left-side;
+  padding : (17.5/16) + rem (30/16) + rem;
 }
 
 .user-card {
-  padding-left    : 20px;
-  margin-bottom   : 60px;
+  padding-left    : 10px;
+  margin-bottom   : 30px;
   display         : flex;
   justify-content : flex-start;
   align-content   : center;
   flex-direction  : row;
   .user-avatar {
-    width         : 100px;
-    height: 100px;
+    width         : 50px;
+    height        : 50px;
     border-radius : 50%;
-    box-shadow    : 0 0 0 3px #FFF;
+    box-shadow    : 0 0 0 2px #FFF;
     padding       : 8px;
     margin        : 3px 40px 3px 3px;
   }
   .user-name {
     align-self : center;
-    font-size  : 30px;
+    font-size  : (15/16) + rem;
   }
 }
 
@@ -55,19 +59,19 @@ $width-left-side : 685px;
     align-content   : center;
     flex-direction  : row;
     p {
-      font-size   : 24px;
-      line-height : 28px;
+      font-size   : (12/16)+rem;
+      line-height : (14/16)+rem;
       color       : #B3BBCB;
     }
     p:first-child {
-      padding-left : 30px;
+      padding-left : (15/16)+rem;
     }
     p:last-child {
-      padding-right : 30px;
+      padding-right : (15/16)+rem;
       font-weight   : bold;
     }
     i {
-      font-size : 30px;
+      font-size : (15/16)+rem;
     }
   ;
   }
@@ -77,28 +81,35 @@ $width-left-side : 685px;
     margin  : 0;
 
     .project-item {
+      cursor          : pointer;
       display         : flex;
       justify-content : space-between;
       align-content   : center;
       flex-direction  : row;
       width           : 100%;
-      height          : 90px;
-      font-size       : 30px;
-      line-height     : 30px;
-      border-radius   : 6px;
+      height          : (45/16)+rem;
+      font-size       : (15/16)+rem;
+      line-height     : (15/16)+rem;
+      border-radius   : (3/16)+rem;
       transition      : background 0.4s;
+      .activeProject {
+        background : #56567A;
+      }
       &:hover {
+        background : #56567A;
+      }
+      &:focus {
         background : #56567A;
       }
       span {
         align-self  : center;
-        line-height : 30px;
+        line-height : (15/16)+rem;
       }
       span:first-child {
-        padding-left : 30px;
+        padding-left : (15/16)+rem;
       }
       span:last-child {
-        padding-right : 30px;
+        padding-right : (15/16)+rem;
       }
     }
   }
@@ -106,102 +117,106 @@ $width-left-side : 685px;
 
 .logout {
   text-decoration : none;
-  font-size       : 24px;
+  font-size       : (12/16)+rem;
   color           : white;
   position        : absolute;
   bottom          : 0;
-  left            : 30px;
+  left            : (15/16)+rem;
 }
 
 /*---------------*/
 //content
 /*---------------*/
 
-.tasks-list {
-  overflow : hidden;
+.toolbar {
+  padding : 0 (20/16)+rem;
 }
 
-.wrap {
-  width         : 100%;
-  height        : 100%;
-  overflow-y    : scroll;
-  padding-right : 35px;
+.menu {
+  margin : 0 (17.5/16)+rem;
+}
+
+.tasks-list {
 }
 
 .icons8-search,
 .icons8-more,
 .icons8-plus {
   color     : #B3BBCB !important;
-  font-size : 45px !important;
-  //width : 45px;
-  //height : 45px;
+  font-size : (22.5/16)+rem !important;
 }
 
 .tasks-item {
-  border-radius    : 15px;
+  //border-radius    : (7.5/16)+rem;
   background-color : #FFF;
 }
 
 .tasks-subheader {
-  margin-top : 40px;
-  color      : #B3BBCB !important;
-  //background : transparent !important;
+  margin-top : (20/16)+rem;
 }
 
 .md-subheader-content {
-  font-size : 30px;
+  font-size : (15/16)+rem;
 }
 
 .tasks-text {
-  line-height : 120px;
-  font-size   : 24px;
-  margin-left : 30px;
+  line-height : (60/16)+rem;
+  font-size   : (12/16)+rem;
+  margin-left : (15/16)+rem;
 
   &:before {
     content    : '';
-    height     : 80px;
+    height     : (40/16)+rempx;
     width      : 2px;
     background : #BDBDBD;
     position   : absolute;
-    left       : 120px;
-    top        : 20px;
+    left       : (60/16)+rem;
+    top        : (10/16)+rem;
   }
 }
 
 .tasks-check {
-  margin-left  : 40px !important;
-  margin-right : 40px !important;
-
-  .md-icon {
-    border-radius : 50%;
-    border        : 6px solid #BDBDBD;
-    width         : 40px;
-    height        : 40px;
-    margin-top    : -10px;
+  transition    : 0.4s;
+  cursor        : pointer;
+  box-sizing    : border-box;
+  margin-left   : (20/16)+rem;
+  margin-right  : (20/16)+rem;
+  border-radius : 50%;
+  border        : (3/16)+rem solid #BDBDBD;
+  width         : (20/16)+rem !important;
+  height        : (20/16)+rem !important;
+  &:focus,
+  &:hover,
+  &.activeTask {
+    background : #56567A;
   }
 }
 
-md-checkbox.md-checked .md-icon:after {
-  box-sizing        : border-box;
-  -webkit-transform : rotate(45deg);
-  transform         : rotate(45deg);
-  position          : absolute;
-  left              : 8px;
-  top               : 0;
-  display           : table;
-  width             : 13px;
-  height            : 23px;
-  border-width      : 5px;
-  border-style      : solid;
-  border-top        : 0;
-  border-left       : 0;
-  content           : '';
+.md-list-item-text {
+  width : 100%;
 }
 
+//md-checkbox.md-checked .md-icon:after {
+//  box-sizing        : border-box;
+//  -webkit-transform : rotate(45deg);
+//  transform         : rotate(45deg);
+//  position          : absolute;
+//  left              : 8px;
+//  top               : 0;
+//  display           : table;
+//  width             : 13px;
+//  height            : 23px;
+//  border-width      : 5px;
+//  border-style      : solid;
+//  border-top        : 0;
+//  border-left       : 0;
+//  content           : '';
+//}
+
 .tasks-group-item {
-  border-radius : 15px;
+  border-radius : (7.5/16)+rem;
+  box-shadow    : 0px 2px 15px -4px rgba(0, 0, 0, 0.75);
   md-list-item:not(:last-child):after {
-    //border-bottom : 2px solid #BDBDBD;
     content    : '';
     width      : 90%;
     height     : 2px;
@@ -212,19 +227,24 @@ md-checkbox.md-checked .md-icon:after {
   }
 }
 
+.md-subheader.md-default-theme, .md-subheader {
+  color : rgba(0, 0, 0, 0.54);
+}
+
 .empty-task {
+  transform       : translateY(-4rem);
   display         : flex;
   justify-content : center;
   align-content   : center;
   flex-direction  : column;
   text-align      : center;
   i {
-    font-size : 370px;
+    font-size : (185/16)+rem;
     color     : #B1B1C8;
     //display   : block;
   }
   span {
-    font-size   : 48px;
+    font-size   : (24/16) + rem;
     font-family : 'SFUITextMedium', sans-serif;
     color       : #B1B1C8;
   }
@@ -233,25 +253,25 @@ md-checkbox.md-checked .md-icon:after {
 /*---------------*/
 //sidenav right
 /*---------------*/
-$width-right-side : 1000px;
+$width-right-side : (500/16)+rem;
 
 .side-right {
-  padding-top : 20px;
+  padding-top : (24/16)+rem;
   width       : $width-right-side;
   min-width   : $width-right-side;
   max-width   : $width-right-side;
   text-align  : center;
   h3 {
-    font-size   : 36px;
+    font-size   : (18/16)+rem;
     font-family : 'SFUITextMedium', sans-serif;
     color       : white;
   }
   p {
     margin      : 0 auto;
     color       : white;
-    font-size   : 24px;
-    line-height : 44px;
-    max-width   : 680px;
+    font-size   : (12/16)+rem;
+    line-height : (22/16)+rem;
+    max-width   : (340/16)+rem;
     text-align  : justify;
     font-family : SFUIText, sans-serif;
   }
@@ -263,20 +283,24 @@ $width-right-side : 1000px;
   justify-content : center;
   align-content   : center;
   flex-direction  : column;
-  width           : 680px;
+  width           : (340/16)+rem;
   margin          : 0 auto;
   text-align      : left;
 
   label {
-    font-size   : 30px;
+    font-size   : (15/16)+rem;
     font-family : 'SFUIText', sans-serif;
     color       : #F6F6F6 !important;
   }
   .input-container > input {
-    border-bottom : 3px solid #F6F6F6 !important;
+    border-bottom : (3/16)+rem solid #F6F6F6 !important;
     color         : #F6F6F6;
-    font-size     : 30px;
+    font-size     : (15/16)+rem;
   }
+}
+
+md-input-container {
+   margin: 0px 0;
 }
 
 // buttons style
@@ -284,59 +308,106 @@ $width-right-side : 1000px;
 .btn-add-task,
 .btn-submit {
   position : absolute;
-  right    : 60px;
-  bottom   : 60px;
-  width    : 100px !important;
-  height   : 100px !important;
+  right    : (30/16)+rem;
+  bottom   : (30/16)+rem;
+  width    : (50/16)+rem !important;
+  height   : (50/16)+rem !important;
   md-icon::before {
-    line-height : 0.5;
-    font-size   : 60px;
+    line-height : 0.5rem;
+    font-size   : (20/16)+rem;
     color       : white;
   }
 }
 
 .btn-close-right {
   position        : absolute;
-  top             : 40px;
-  left            : 20px;
+  top             : (20/16)+rem;
+  left            : (10/16)+rem;
   color           : white;
-  width           : 40px;
-  height          : 80px;
+  width           : (20/16)+rem;
+  height          : (40/16)+rem;
   display         : flex;
   justify-content : center;
   align-content   : center;
   flex-direction  : column;
   md-icon::before {
-    line-height : 0.5;
-    font-size   : 50px;
+    line-height : 4rem;
+    font-size   : (25/16)+rem;
     color       : white;
   }
   span {
-    font-size : 18px;
+    font-size : (9/16)+rem;
   }
 }
 
 .btn-edit-task,
 .btn-delete-task {
   position : absolute;
-  top      : 50px;
-  width    : 40px;
-  height   : 40px;
+  top      : (25/16)+rem;
+  width    : (20/16)+rem;
+  height   : (20/16)+rem;
   &:hover md-icon::before {
     color : white;
   }
   md-icon::before {
     transition  : color 0.4s;
-    line-height : 0.5;
-    font-size   : 40px;
+    line-height : 0.5rem;
+    font-size   : (20/16)+rem;
     color       : #51555E;
   }
 }
 
 .btn-edit-task {
-  right : 100px;
+  right : (50/16)+rem;
 }
 
 .btn-delete-task {
-  right : 30px;
+  right : (15/16)+rem;
 }
+
+//Animate class
+
+.animate,
+.animate.ng-move,
+.animate.ng-enter,
+.animate.ng-leave {
+  transition : all linear 0.8s;
+}
+
+@keyframes leave {
+  0% {
+    opacity : 0;
+  }
+  90% {
+    opacity : 1;
+    //margin-top : -200rem;
+  }
+  100% {
+    //display : none;
+    opacity : 1;
+  }
+}
+
+@keyframes enter {
+  0% {
+    opacity : 1;
+  }
+  40% {
+    opacity : 1;
+    //margin-top : 0;
+  }
+  100% {
+    opacity : 0;
+    //margin-top : 0;
+  }
+}
+//
+//.animate.ng-leave {
+//  //opacity : 1;
+//  animation : leave 0.3s;
+//}
+//
+//.animate.ng-enter {
+//  animation-delay : 0.3s;
+//  animation       : enter 0.6s;
+//}

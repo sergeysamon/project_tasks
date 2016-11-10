@@ -45,13 +45,12 @@
                     }
                 }
             }).then(function (response) {
-                // console.log(response.data.Project);
                 return response.data.Project
             });
         };
 
         projects.updateProject = function (title, id) {
-            $http({
+            return $http({
                 url   : 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "POST",
                 params: {
@@ -66,11 +65,13 @@
                         "title": title
                     }
                 }
-            })
+            }).then(function (response) {
+                return response.data.Project
+            });
         };
 
         projects.deleteProject = function (id) {
-            $http({
+            return $http({
                 url   : 'https://api-test-task.decodeapps.io/projects/project/',
                 method: "DELETE",
                 params: {
@@ -78,6 +79,8 @@
                     project_id: id
                 }
 
+            }).then(function (response) {
+                console.log("delete ok!", response);
             })
         };
 

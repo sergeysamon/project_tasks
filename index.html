@@ -32,10 +32,10 @@
 
 </head>
 
-<body ng-app="starterApp" layout="column" ng-controller="AppController as app" ng-cloak>
+<body ng-app="starterApp" layout="column"  ng-cloak="">
 
 
-<div flex layout="row">
+<div flex layout="row" ng-controller="AppController as app" >
 
     <md-sidenav class="side-left md-sidenav-left" md-colors="{background: 'primary-500',color: 'primary-50' }"
                 md-is-locked-open="$mdMedia('gt-md')"
@@ -55,7 +55,7 @@
                 </div>
 
                 <ul class="project-list">
-                    <li class="project-item" ng-repeat="project in app.projects"
+                    <li class="project-item animate" ng-repeat="project in app.projects"
                         ng-click="app.showTasksProject(project.id)">
                         <span>{{project.title}}</span>
                         <span>{{project.task_count}}</span>
@@ -71,12 +71,36 @@
     </md-sidenav>
 
     <md-content flex layout="column" id="content">
-
         <md-toolbar md-colors="{background: 'primary-100',color: 'primary-500' }">
-            <div class="md-toolbar-tools">
+            <div class="md-toolbar-tools toolbar">
                 <md-icon md-font-icon="icons8-search"></md-icon>
+
                 <span flex></span>
-                <md-icon md-font-icon="icons8-more"></md-icon>
+
+                <md-menu class="menu" md-position-mode="target-right target">
+                    <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-menu-origin md-font-icon="icons8-more"></md-icon>
+                    </md-button>
+                    <md-menu-content width="4" md-colors="{background: 'primary-100',color: 'primary-500' }">
+                        <md-menu-item md-colors="{background: 'primary-100',color: 'primary-500' }">
+                            <md-button ng-click="app.showEditProject()">
+                                <div layout="row" flex>
+                                    <p flex>Edit Project </p>
+                                    <md-icon md-menu-align-target style="margin: auto 3px auto 0;"></md-icon>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="app.deleteProject(app.selectedProject)">
+                                <div layout="row" flex>
+                                    <p flex>Delete Project </p>
+                                    <md-icon md-menu-align-target style="margin: auto 3px auto 0;"></md-icon>
+                                </div>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <!--<md-icon md-font-icon="icons8-more"></md-icon>-->
             </div>
         </md-toolbar>
 
@@ -90,20 +114,24 @@
             </div>
 
             <md-list flex-gt-xs="60" flex="100" class="tasks-list" ng-if="app.showTasksList">
-                <div class="wrap">
-                    <div class="tasks-item" ng-repeat="task in app.tasks">
-                        <md-subheader class="md-no-sticky tasks-subheader" md-colors="{background: 'primary-100'}">
-                            {{task.created_at | format_date}}
-                        </md-subheader>
-                        <div class="tasks-group-item md-whiteframe-6dp">
-                            <md-list-item ng-disabled="true">
-                                <md-checkbox class="tasks-check"></md-checkbox>
-                                <span class="tasks-text" ng-click="app.showDetailTask(task)">{{task.title}}</span>
-                            </md-list-item>
-                        </div>
+
+                <div class="tasks-item animate" ng-repeat="task in app.tasks">
+                    <md-subheader class="md-no-sticky tasks-subheader" md-colors="{background: 'primary-100'}">
+                        {{task.date | format_date}}
+                    </md-subheader>
+                    <div class="tasks-group-item ">
+                        <md-list-item ng-disabled="true" ng-repeat="item in task.tasks">
+                            <div class="tasks-check"></div>
+                            <div class="md-list-item-text" layout="column" ng-click="app.showDetailTask(item)">
+                                <span class="tasks-text">{{item.title}}</span>
+                            </div>
+
+                        </md-list-item>
                     </div>
 
+
                 </div>
+
 
             </md-list>
 
@@ -148,7 +176,7 @@
                 </div>
 
                 <div ng-if="app.visibleDetailTask">
-                    <h3>{{right.title}}</h3>
+                    <h3>{{right.taskName}}</h3>
                     <p>{{right.description}}</p>
                 </div>
 
@@ -160,16 +188,18 @@
                 <span>ESC</span>
             </md-button>
 
-
-            <md-button md-no-ink class="btn-delete-task">
-                <md-icon md-font-icon="icons8-delete" ng-click="right.delete()"></md-icon>
+            <md-button md-no-ink class="btn-delete-task" aria-label="Delete Task" ng-if="app.visibleDetailTask"
+                       ng-click="right.delete()">
+                <md-icon md-font-icon="icons8-delete"></md-icon>
             </md-button>
-            <md-button md-no-ink class="btn-edit-task">
+
+            <md-button md-no-ink class="btn-edit-task" aria-label="Edit Task" ng-if="app.visibleDetailTask"
+                       ng-click="right.editTask()">
                 <md-icon md-font-icon="icons8-edit"></md-icon>
             </md-button>
 
-            <md-button class="md-fab md-accent btn-submit" aria-label="Use Android">
-                <md-icon md-font-icon="icons8-checkmark" ng-click="right.submit()"></md-icon>
+            <md-button class="md-fab md-accent btn-submit" aria-label="Submit" ng-click="right.submit()">
+                <md-icon md-font-icon="icons8-checkmark"></md-icon>
             </md-button>
         </div>
 
@@ -206,6 +236,7 @@
     angular
             .module('starterApp', [
                 'ngMaterial',
+                'ngAnimate',
                 'app',
                 'account',
                 'projects',

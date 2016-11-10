@@ -7,6 +7,54 @@
 
     function TasksService($http, $q, $cookies) {
 
+        // group tasks of day
+        function groupByDate(obj) {
+            var sortArray = [];
+            var marker    = [];
+            var temp      = {
+                date : '',
+                tasks: []
+            };
+
+            function formatDate(date) {
+                var parseDate = new Date(date);
+                // console.log(date)
+                var dd        = parseDate.getDate() - 1;
+                var mm        = parseDate.getMonth() + 1;
+                var yy        = parseDate.getFullYear();
+                console.log(dd,mm,yy);
+                return yy + '/' + dd + '/' + mm
+            }
+
+            for (var i = 0; i < obj.length; i++) {
+
+                var date = formatDate(obj[i].Task.created_at);
+
+
+                if (marker.indexOf(date) == -1) {
+
+                    marker.push(date);
+
+                    temp.date = date;
+
+                    for (var j = 0; j < obj.length; j++) {
+                        if (formatDate(obj[j].Task.created_at) == temp.date) {
+                            temp.tasks.push(obj[j].Task);
+                        }
+                    }
+
+                    sortArray.push(temp);
+                    temp = {
+                        date : '',
+                        tasks: []
+                    };
+
+
+                }
+            }
+            return sortArray;
+        }
+
 
         var tasks = {};
 
@@ -21,16 +69,11 @@
                     paging_offset: paging_offset || 0
                 }
             }).then(function (response) {
-                var tasks = response.data.tasks.map(function (item) {
-                    var result = {
-                        created_at : new Date(item.Task.created_at),
-                        description: item.Task.description,
-                        id         : item.Task.id,
-                        title      : item.Task.title
-                    };
-                    return result;
-                });
-                return tasks;
+
+                var x = groupByDate(response.data.tasks);
+
+
+                return groupByDate(response.data.tasks);
             })
         };
 

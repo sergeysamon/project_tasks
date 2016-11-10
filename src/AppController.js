@@ -6,6 +6,7 @@
             '$scope',
             '$mdSidenav',
             // '$mdBottomSheet',
+            // '$mdOpenMenu',
             '$timeout',
             '$log',
             'accountService',
@@ -17,6 +18,7 @@
         .controller('LeftCtrl', [
             '$scope',
             '$mdSidenav',
+            // '$mdOpenMenu',
             '$timeout',
             '$log',
             LeftCtrl
@@ -24,6 +26,7 @@
         .controller('RightCtrl', [
             '$scope',
             '$mdSidenav',
+            // '$mdOpenMenu',
             '$timeout',
             '$log',
             RightCtrl
@@ -50,7 +53,7 @@
                 accountService.signUp()
                     .then(function (session) {
                         self.getAccountData();
-                        self.selectedProject = self.getProjects()[0].id;
+                        self.getProjects();
                     });
             }
             else {
@@ -58,7 +61,7 @@
                     .then(function (checked) {
                         if (checked) {
                             self.getAccountData();
-                            self.selectedProject = self.getProjects()[0].id;
+                            self.getProjects();
                         }
                     });
             }
@@ -80,19 +83,28 @@
 
         self.getProjects = function () {
             self.projects = [];
-            projectsService.getAllProjects().then(function (projects) {
-                self.projects = projects;
-            });
-            return self.projects;
+            $timeout(function () {
+                projectsService.getAllProjects().then(function (projects) {
+                    self.projects        = projects;
+                    self.selectedProject = projects[0].id
+                });
+            }, 500);
+
+            // return self.projects;
         };
 
         self.showTasksProject = function (id) {
+            self.tasks           = [];
             self.selectedProject = id;
-            tasksService.getAllTasks(self.selectedProject, 10, 0)
-                .then(function (tasks) {
-                    self.tasks         = tasks;
-                    self.showTasksList = tasks.length !== 0;
-                })
+            $timeout(function () {
+                tasksService.getAllTasks(self.selectedProject, 10, 0)
+                    .then(function (tasks) {
+                        self.tasks         = tasks;
+                        self.showTasksList = tasks.length !== 0;
+                    })
+            }, 500);
+
+
         };
 
         self.resetRightSideVisible = function () {
@@ -118,8 +130,6 @@
             self.visibleDetailTask = true;
             self.toggleRight();
 
-            // console.log(task);
-
             $scope.$broadcast('task-detail', {
                 title      : task.title,
                 description: task.description,
@@ -127,44 +137,94 @@
             })
         };
 
-        $scope.$on('deleteTask', function (event, data) {
+        self.showEditProject = function () {
+            self.resetRightSideVisible();
+            self.visibleCreateProject = true;
+            self.toggleRight();
 
-            // console.log(data);
+            projectsService.getProject(self.selectedProject).then(function (project) {
+                $scope.$broadcast('edit-project', {
+                    project: project
+                })
+            });
+
+
+        };
+
+        self.deleteProject = function () {
+            projectsService.deleteProject(self.selectedProject).then(function () {
+                self.getProjects();
+                $timeout(function () {
+                    if (self.selectedProject > 0) {
+                        self.showTasksProject(self.selectedProject)
+                    } else {
+                        self.showTasksList = false;
+                    }
+                }, 500)
+            })
+        };
+
+        $scope.$on('edit-task', function (event, data) {
+            if (data.taskEdit) {
+                self.resetRightSideVisible();
+                self.visibleCreateTask = true;
+            }
+        });
+
+        $scope.$on('deleteTask', function (event, data) {
             tasksService.deleteTask(data)
                 .then(function (isDeleted) {
                     if (isDeleted) {
                         self.getProjects();
                         self.showTasksProject(self.selectedProject);
                     }
-
                 })
-
-
         });
 
         $scope.$on('submit', function (event, data) {
-            if (data.project) {
-                projectsService.createProject(data.projectName)
-                    .then(function (project) {
-                        self.getProjects();
-                        self.showTasksProject(project.id);
-                    });
+            if (data.taskInfo) {
+
+            } else if (data.project) {
+                if (data.projectId > 0) {
+                    projectsService.updateProject(data.projectName, data.projectId)
+                        .then(function (project) {
+                            self.getProjects();
+                            self.showTasksProject(project.id);
+                        });
+                } else {
+                    projectsService.createProject(data.projectName)
+                        .then(function (project) {
+                            self.getProjects();
+                            self.showTasksProject(project.id);
+                        });
+                }
+
+
             } else if (data.task) {
                 tasksService.createTask(self.selectedProject, data.taskName, data.description)
                     .then(function (task) {
                         self.getProjects();
                         self.showTasksProject(self.selectedProject);
                     })
-            } else {
+            } else if (data.taskEdit) {
+                tasksService.updateTask(data.id, data.taskName, data.description)
+                    .then(function (task) {
+                        self.getProjects();
+                        self.showTasksProject(self.selectedProject);
+                    })
+            }
+            else {
                 console.log(data.error);
             }
         });
+
 
         self.toggleLeft  = buildDelayedToggler('left');
         self.toggleRight = buildToggler('right');
         self.isOpenRight = function () {
             return $mdSidenav('right').isOpen();
         };
+
 
         function debounce(func, wait, context) {
             var timer;
@@ -220,34 +280,56 @@
         self.taskName    = '';
         self.description = '';
         self.projectName = '';
-
-        self.title       = '';
-        self.description = '';
         self.taskId      = '';
+        self.projectId   = '';
+        self.taskEdit    = false;
+        self.taskInfo    = false;
 
         self.setDetailTask = function (title, description, id) {
-            self.title       = title;
+            self.taskName    = title;
             self.description = description;
             self.taskId      = id;
         };
 
+
         $scope.$on('task-detail', function (event, data) {
-            console.log(data.id)
             self.setDetailTask(data.title, data.description, data.id)
+            self.taskInfo = true;
+        });
+
+        $scope.$on('edit-project', function (event, data) {
+            self.projectName = data.project.title;
+            self.projectId   = data.project.id;
         });
 
         self.context = function () {
-            if (self.taskName !== "") {
+            if (self.taskEdit) {
                 return {
-                    task       : true,
+                    taskEdit   : self.taskEdit,
+                    id         : self.taskId,
                     taskName   : self.taskName,
                     description: self.description
                 }
+            } else if (self.taskName !== "") {
+                return {
+                    task       : true,
+                    taskName   : self.taskName,
+                    description: self.description,
+                    taskInfo   : self.taskInfo
+                }
             } else if (self.projectName !== "") {
+                if (self.projectId > 0) {
+                    return {
+                        project    : true,
+                        projectName: self.projectName,
+                        projectId  : self.projectId
+                    }
+                }
                 return {
                     project    : true,
                     projectName: self.projectName
                 }
+
             } else {
                 return {
                     error: true
@@ -259,12 +341,16 @@
             self.taskName    = '';
             self.description = '';
             self.projectName = '';
+            self.projectId   = -1;
+            self.taskInfo    = false;
+            self.projectEdit = false;
+
         };
 
         self.submit = function () {
             $scope.$emit('submit', self.context());
             $mdSidenav('right').close();
-            self.resetForm()
+            self.resetForm();
 
         };
 
@@ -273,6 +359,12 @@
             $mdSidenav('right').close();
         };
 
+        self.editTask = function () {
+            self.taskEdit = true;
+            $scope.$emit('edit-task', {task_id: self.taskId, taskEdit: self.taskEdit});
+            self.resetForm();
+
+        };
 
         self.close = function () {
             // Component lookup should always be available since we are not using `ng-if`
@@ -280,11 +372,9 @@
                 .then(function () {
                     $log.debug("close RIGHT is done");
                 });
-
-            this.taskName    = '';
-            this.description = '';
-            this.projectName = '';
+            self.resetForm();
         };
     }
 
-})();
+})
+();

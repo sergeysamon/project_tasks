@@ -1,23 +1,24 @@
 (function () {
     'use strict';
-
-    // Prepare the 'users' module for subsequent registration of controllers and delegates
     angular.module('tasks')
         .filter('format_date', function () {
             return function (input, format) {
-                var date = moment(new Date(input))
-                    .subtract(1, 'day')
-                    .calendar(null, {
-                        sameDay: '[Today]',
-                        nextDay: '[Tomorrow]',
+                var date = moment(new Date(input));
+                // .subtract(1, 'day')
+                    console.log(date)
+
+                    date.calendar(null, {
+                        sameDay : '[Today]',
+                        nextDay : '[Tomorrow]',
                         nextWeek: 'dddd',
-                        lastDay: '[Yesterday]',
+                        lastDay : '[Yesterday]',
                         lastWeek: '[Last] dddd',
                         sameElse: 'DD/MM/YYYY'
                     });
 
+                console.log(date)
                 if (date !== 'Tomorrow' || date !== 'Yesterday' || date !== 'Today') {
-                    return date
+                    return moment(new Date(input)).format("dddd")
                 } else {
                     return moment(new Date(input)).format("dddd") + " (" + moment(new Date(input)).format("DD.mm.YYYY") + ")"
                 }
