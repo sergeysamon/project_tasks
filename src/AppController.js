@@ -313,7 +313,7 @@
 
         $scope.$on('task-detail', function (event, data) {
             self.setDetailTask(data.title, data.description, data.id);
-            console.log(self.taskName, self.description);
+            // console.log(self.taskName, self.description);
             self.taskInfo       = true;
             self.tempTextHeader = data.textHeader;
         });
