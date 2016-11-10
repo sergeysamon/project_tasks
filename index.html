@@ -11,6 +11,7 @@
 
     <!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>-->
     <link rel="stylesheet" href="./lib/angular-material.css"/>
+    <link rel="stylesheet" href="./lib/animate.css">
     <link rel="stylesheet" href="./assets/styles.css">
     <link rel="stylesheet" href="./assets/fonts.css">
     <link rel="stylesheet" href="assets/app.css"/>
@@ -32,10 +33,10 @@
 
 </head>
 
-<body ng-app="starterApp" layout="column"  ng-cloak="">
+<body ng-app="starterApp" layout="column" ng-cloak="">
 
 
-<div flex layout="row" ng-controller="AppController as app" >
+<div flex layout="row" ng-controller="AppController as app">
 
     <md-sidenav class="side-left md-sidenav-left" md-colors="{background: 'primary-500',color: 'primary-50' }"
                 md-is-locked-open="$mdMedia('gt-md')"
@@ -73,7 +74,11 @@
     <md-content flex layout="column" id="content">
         <md-toolbar md-colors="{background: 'primary-100',color: 'primary-500' }">
             <div class="md-toolbar-tools toolbar">
-                <md-icon md-font-icon="icons8-search"></md-icon>
+                <md-icon md-font-icon="icons8-search" ng-click="app.showSearch()"></md-icon>
+                <md-input-container flex layout="row">
+                    <input ng-model="searchInput" placeholder="Search here" ng-if="app.visibleSearch">
+                </md-input-container>
+                <!--<md-icon md-font-icon="icons8-search"></md-icon>-->
 
                 <span flex></span>
 
@@ -115,15 +120,15 @@
 
             <md-list flex-gt-xs="60" flex="100" class="tasks-list" ng-if="app.showTasksList">
 
-                <div class="tasks-item animate" ng-repeat="task in app.tasks">
+                <div class="tasks-item" ng-repeat="task in app.tasks">
                     <md-subheader class="md-no-sticky tasks-subheader" md-colors="{background: 'primary-100'}">
                         {{task.date | format_date}}
                     </md-subheader>
                     <div class="tasks-group-item ">
-                        <md-list-item ng-disabled="true" ng-repeat="item in task.tasks">
-                            <div class="tasks-check"></div>
+                        <md-list-item ng-disabled="true" ng-repeat="item in task.tasks | filter: searchInput">
+                            <div class="tasks-check" ng-click="app.completeTask(item.id)"></div>
                             <div class="md-list-item-text" layout="column" ng-click="app.showDetailTask(item)">
-                                <span class="tasks-text">{{item.title}}</span>
+                                <span class="tasks-text">{{item.title }}</span>
                             </div>
 
                         </md-list-item>
@@ -152,7 +157,8 @@
             <md-content flex layout="column" md-colors="{background: 'primary-500',color: 'primary-50'}">
 
                 <div ng-if="app.visibleCreateTask">
-                    <h3>Create new task</h3>
+                    <h3 ng-show="right.textHeader !== ''"> {{right.textHeader}}</h3>
+                    <h3 ng-show="right.textHeader == ''"> Create new task</h3>
                     <form class="new-task-form">
                         <md-input-container class="input-container">
                             <label for="taskname">Task name</label>
@@ -166,7 +172,8 @@
                 </div>
 
                 <div ng-if="app.visibleCreateProject">
-                    <h3> Create new project </h3>
+                    <h3 ng-show="right.textHeader !== ''"> {{right.textHeader}}</h3>
+                    <h3 ng-show="right.textHeader == ''"> Create new project </h3>
                     <form class="new-task-form">
                         <md-input-container class="input-container">
                             <label for="projectname">Project name</label>
@@ -188,14 +195,12 @@
                 <span>ESC</span>
             </md-button>
 
-            <md-button md-no-ink class="btn-delete-task" aria-label="Delete Task" ng-if="app.visibleDetailTask"
-                       ng-click="right.delete()">
-                <md-icon md-font-icon="icons8-delete"></md-icon>
+            <md-button md-no-ink class="btn-delete-task" aria-label="Delete Task" ng-if="app.visibleDetailTask">
+                <md-icon md-font-icon="icons8-delete" ng-click="right.delete()"></md-icon>
             </md-button>
 
-            <md-button md-no-ink class="btn-edit-task" aria-label="Edit Task" ng-if="app.visibleDetailTask"
-                       ng-click="right.editTask()">
-                <md-icon md-font-icon="icons8-edit"></md-icon>
+            <md-button md-no-ink class="btn-edit-task" aria-label="Edit Task" ng-if="app.visibleDetailTask">
+                <md-icon md-font-icon="icons8-edit" ng-click="right.editTask()"></md-icon>
             </md-button>
 
             <md-button class="md-fab md-accent btn-submit" aria-label="Submit" ng-click="right.submit()">

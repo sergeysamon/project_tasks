@@ -11,10 +11,72 @@ html, body {
 *, *:focus, *:hover {
   outline: none; }
 
+@media only screen and (min-width: 1600px) {
+  html {
+    font-size: 28px; }
+  .btn-close-right {
+    position: absolute;
+    top: 1.25rem;
+    left: 0.625rem;
+    color: white;
+    width: 1.25rem;
+    height: 2.5rem;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+            align-content: center;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .btn-close-right md-icon::before {
+      line-height: 4rem;
+      font-size: 1.5625rem;
+      color: white; }
+    .btn-close-right span {
+      font-size: 0.5625rem; } }
+
+@media only screen and (min-width: 1000px) {
+  html {
+    font-size: 16px; }
+  .btn-close-right {
+    position: absolute;
+    top: 1.25rem;
+    left: 0.625rem;
+    color: white;
+    width: 1.25rem;
+    height: 2.5rem;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+            align-content: center;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column; }
+    .btn-close-right md-icon::before {
+      margin-top: -0.5rem;
+      line-height: 4rem;
+      font-size: 1.5625rem;
+      color: white; }
+    .btn-close-right span {
+      font-size: 0.5625rem; } }
+
 /*---------------*/
 /*---------------*/
 /* vars sidenav left */
 .side-left {
+  width: 21.40625rem;
+  min-width: 21.40625rem;
+  max-width: 21.40625rem;
   padding: 1.09375rem 1.875rem; }
 
 .user-card {
@@ -178,7 +240,7 @@ html, body {
   .tasks-group-item md-list-item:not(:last-child):after {
     content: '';
     width: 90%;
-    height: 2px;
+    height: 1px;
     background: #BDBDBD;
     position: absolute;
     bottom: 0;
@@ -305,7 +367,9 @@ md-input-container {
   position: absolute;
   top: 1.5625rem;
   width: 1.25rem;
-  height: 1.25rem; }
+  height: 1.25rem;
+  padding: 0;
+  margin: 0; }
   .btn-edit-task:hover md-icon::before,
   .btn-delete-task:hover md-icon::before {
     color: white; }
@@ -321,41 +385,3 @@ md-input-container {
 
 .btn-delete-task {
   right: 0.9375rem; }
-
-.animate,
-.animate.ng-move,
-.animate.ng-enter,
-.animate.ng-leave {
-  transition: all linear 0.8s; }
-
-@-webkit-keyframes leave {
-  0% {
-    opacity: 0; }
-  90% {
-    opacity: 1; }
-  100% {
-    opacity: 1; } }
-
-@keyframes leave {
-  0% {
-    opacity: 0; }
-  90% {
-    opacity: 1; }
-  100% {
-    opacity: 1; } }
-
-@-webkit-keyframes enter {
-  0% {
-    opacity: 1; }
-  40% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }
-
-@keyframes enter {
-  0% {
-    opacity: 1; }
-  40% {
-    opacity: 1; }
-  100% {
-    opacity: 0; } }

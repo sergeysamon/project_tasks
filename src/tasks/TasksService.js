@@ -18,38 +18,27 @@
 
             function formatDate(date) {
                 var parseDate = new Date(date);
-                // console.log(date)
-                var dd        = parseDate.getDate() - 1;
+                var dd        = parseDate.getDate() -1;
                 var mm        = parseDate.getMonth() + 1;
                 var yy        = parseDate.getFullYear();
-                console.log(dd,mm,yy);
-                return yy + '/' + dd + '/' + mm
+                return mm + '-' + dd + '-' + yy
             }
 
             for (var i = 0; i < obj.length; i++) {
-
                 var date = formatDate(obj[i].Task.created_at);
-
-
                 if (marker.indexOf(date) == -1) {
-
                     marker.push(date);
-
                     temp.date = date;
-
                     for (var j = 0; j < obj.length; j++) {
                         if (formatDate(obj[j].Task.created_at) == temp.date) {
                             temp.tasks.push(obj[j].Task);
                         }
                     }
-
                     sortArray.push(temp);
                     temp = {
                         date : '',
                         tasks: []
                     };
-
-
                 }
             }
             return sortArray;
@@ -143,13 +132,15 @@
         };
 
 
-        tasks.compliteTask = function (id) {
+        tasks.completeTask = function (id) {
             return $http({
                 url   : 'https://api-test-task.decodeapps.io/tasks/task/complite/',
                 method: "POST",
                 data  : {
                     session: $cookies.get('session'),
-                    task_id: id
+                    Task   : {
+                        "id": id
+                    }
                 }
             }).then(function (response) {
                 return true;

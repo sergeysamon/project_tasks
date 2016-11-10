@@ -47,6 +47,7 @@
         self.visibleCreateProject = false;
         self.visibleDetailTask    = false;
         self.showTasksList        = false;
+        self.visibleSearch        = false;
 
         angular.element(document).ready(function () {
             if (!accountService.isLoggedIn()) {
@@ -87,10 +88,10 @@
                 projectsService.getAllProjects().then(function (projects) {
                     self.projects        = projects;
                     self.selectedProject = projects[0].id
-                });
-            }, 500);
 
-            // return self.projects;
+                });
+            }, 100);
+
         };
 
         self.showTasksProject = function (id) {
@@ -102,7 +103,7 @@
                         self.tasks         = tasks;
                         self.showTasksList = tasks.length !== 0;
                     })
-            }, 500);
+            }, 100);
 
 
         };
@@ -111,6 +112,8 @@
             self.visibleCreateTask    = false;
             self.visibleCreateProject = false;
             self.visibleDetailTask    = false;
+            self.visibleSearch        = false;
+
         };
 
         self.showCreateProject = function () {
@@ -133,7 +136,9 @@
             $scope.$broadcast('task-detail', {
                 title      : task.title,
                 description: task.description,
-                id         : task.id
+                id         : task.id,
+                textHeader : "Edit task " + task.title
+
             })
         };
 
@@ -144,7 +149,8 @@
 
             projectsService.getProject(self.selectedProject).then(function (project) {
                 $scope.$broadcast('edit-project', {
-                    project: project
+                    project   : project,
+                    textHeader: "Edit project " + project.title
                 })
             });
 
@@ -162,6 +168,17 @@
                     }
                 }, 500)
             })
+        };
+
+        self.completeTask = function (id) {
+            tasksService.completeTask(id).then(function (data) {
+                self.getProjects();
+                self.showTasksProject(self.selectedProject);
+            });
+        };
+
+        self.showSearch = function () {
+            self.visibleSearch = !self.visibleSearch;
         };
 
         $scope.$on('edit-task', function (event, data) {
@@ -276,14 +293,16 @@
     }
 
     function RightCtrl($scope, $mdSidenav, $timeout, $log) {
-        var self         = this;
-        self.taskName    = '';
-        self.description = '';
-        self.projectName = '';
-        self.taskId      = '';
-        self.projectId   = '';
-        self.taskEdit    = false;
-        self.taskInfo    = false;
+        var self            = this;
+        self.taskName       = '';
+        self.description    = '';
+        self.projectName    = '';
+        self.taskId         = '';
+        self.projectId      = '';
+        self.taskEdit       = false;
+        self.taskInfo       = false;
+        self.textHeader     = '';
+        self.tempTextHeader = '';
 
         self.setDetailTask = function (title, description, id) {
             self.taskName    = title;
@@ -293,13 +312,16 @@
 
 
         $scope.$on('task-detail', function (event, data) {
-            self.setDetailTask(data.title, data.description, data.id)
-            self.taskInfo = true;
+            self.setDetailTask(data.title, data.description, data.id);
+            console.log(self.taskName, self.description);
+            self.taskInfo       = true;
+            self.tempTextHeader = data.textHeader;
         });
 
         $scope.$on('edit-project', function (event, data) {
             self.projectName = data.project.title;
             self.projectId   = data.project.id;
+            self.textHeader  = data.textHeader;
         });
 
         self.context = function () {
@@ -338,12 +360,14 @@
         };
 
         self.resetForm = function () {
-            self.taskName    = '';
-            self.description = '';
-            self.projectName = '';
-            self.projectId   = -1;
-            self.taskInfo    = false;
-            self.projectEdit = false;
+            self.taskName       = '';
+            self.description    = '';
+            self.projectName    = '';
+            self.projectId      = -1;
+            self.taskInfo       = false;
+            self.projectEdit    = false;
+            self.textHeader     = '';
+            self.tempTextHeader = '';
 
         };
 
@@ -351,7 +375,6 @@
             $scope.$emit('submit', self.context());
             $mdSidenav('right').close();
             self.resetForm();
-
         };
 
         self.delete = function () {
@@ -360,6 +383,9 @@
         };
 
         self.editTask = function () {
+            if (self.tempTextHeader !== '') {
+                self.textHeader = self.tempTextHeader;
+            }
             self.taskEdit = true;
             $scope.$emit('edit-task', {task_id: self.taskId, taskEdit: self.taskEdit});
             self.resetForm();
@@ -367,7 +393,6 @@
         };
 
         self.close = function () {
-            // Component lookup should always be available since we are not using `ng-if`
             $mdSidenav('right').close()
                 .then(function () {
                     $log.debug("close RIGHT is done");

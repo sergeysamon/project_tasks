@@ -15,18 +15,74 @@ html, body {
   outline : none;
 }
 
+@media only screen and (min-width : 1600px) {
+
+  html {
+    font-size : 28px;
+  }
+  .btn-close-right {
+    position        : absolute;
+    top             : (20/16)+rem;
+    left            : (10/16)+rem;
+    color           : white;
+    width           : (20/16)+rem;
+    height          : (40/16)+rem;
+    display         : flex;
+    justify-content : center;
+    align-content   : center;
+    flex-direction  : column;
+    md-icon::before {
+      line-height : 4rem;
+      font-size   : (25/16)+rem;
+      color       : white;
+    }
+    span {
+      font-size : (9/16)+rem;
+    }
+  }
+}
+
+@media only screen and (min-width : 1000px) {
+
+  html {
+    font-size : 16px;
+  }
+
+  .btn-close-right {
+    position        : absolute;
+    top             : (20/16)+rem;
+    left            : (10/16)+rem;
+    color           : white;
+    width           : (20/16)+rem;
+    height          : (40/16)+rem;
+    display         : flex;
+    justify-content : center;
+    align-content   : center;
+    flex-direction  : column;
+    md-icon::before {
+      margin-top  : -0.5rem;
+      line-height : 4rem;
+      font-size   : (25/16)+rem;
+      color       : white;
+    }
+    span {
+      font-size : (9/16)+rem;
+    }
+  }
+}
+
 /*---------------*/
 //sidenav left
 /*---------------*/
 
 /* vars sidenav left */
-//$width-left-side : 685px;
+$width-left-side : (342.5/16)+rem;
 
 .side-left {
-  //width     : $width-left-side;
-  //min-width : $width-left-side;
-  //max-width : $width-left-side;
-  padding : (17.5/16) + rem (30/16) + rem;
+  width     : $width-left-side;
+  min-width : $width-left-side;
+  max-width : $width-left-side;
+  padding   : (17.5/16) + rem (30/16) + rem;
 }
 
 .user-card {
@@ -196,30 +252,13 @@ html, body {
   width : 100%;
 }
 
-//md-checkbox.md-checked .md-icon:after {
-//  box-sizing        : border-box;
-//  -webkit-transform : rotate(45deg);
-//  transform         : rotate(45deg);
-//  position          : absolute;
-//  left              : 8px;
-//  top               : 0;
-//  display           : table;
-//  width             : 13px;
-//  height            : 23px;
-//  border-width      : 5px;
-//  border-style      : solid;
-//  border-top        : 0;
-//  border-left       : 0;
-//  content           : '';
-//}
-
 .tasks-group-item {
   border-radius : (7.5/16)+rem;
   box-shadow    : 0px 2px 15px -4px rgba(0, 0, 0, 0.75);
   md-list-item:not(:last-child):after {
     content    : '';
     width      : 90%;
-    height     : 2px;
+    height     : 1px;
     background : #BDBDBD;
     position   : absolute;
     bottom     : 0;
@@ -300,7 +339,7 @@ $width-right-side : (500/16)+rem;
 }
 
 md-input-container {
-   margin: 0px 0;
+  margin : 0px 0;
 }
 
 // buttons style
@@ -346,6 +385,8 @@ md-input-container {
   top      : (25/16)+rem;
   width    : (20/16)+rem;
   height   : (20/16)+rem;
+  padding  : 0;
+  margin   : 0;
   &:hover md-icon::before {
     color : white;
   }
@@ -365,49 +406,6 @@ md-input-container {
   right : (15/16)+rem;
 }
 
-//Animate class
-
-.animate,
-.animate.ng-move,
-.animate.ng-enter,
-.animate.ng-leave {
-  transition : all linear 0.8s;
+md-icon {
+  //margin-top: -28px;
 }
-
-@keyframes leave {
-  0% {
-    opacity : 0;
-  }
-  90% {
-    opacity : 1;
-    //margin-top : -200rem;
-  }
-  100% {
-    //display : none;
-    opacity : 1;
-  }
-}
-
-@keyframes enter {
-  0% {
-    opacity : 1;
-  }
-  40% {
-    opacity : 1;
-    //margin-top : 0;
-  }
-  100% {
-    opacity : 0;
-    //margin-top : 0;
-  }
-}
-//
-//.animate.ng-leave {
-//  //opacity : 1;
-//  animation : leave 0.3s;
-//}
-//
-//.animate.ng-enter {
-//  animation-delay : 0.3s;
-//  animation       : enter 0.6s;
-//}
