@@ -138,7 +138,6 @@
                 description: task.description,
                 id         : task.id,
                 textHeader : "Edit task " + task.title
-
             })
         };
 
@@ -313,9 +312,8 @@
 
         $scope.$on('task-detail', function (event, data) {
             self.setDetailTask(data.title, data.description, data.id);
-            // console.log(self.taskName, self.description);
             self.taskInfo       = true;
-            self.tempTextHeader = data.textHeader;
+            self.textHeader = data.textHeader;
         });
 
         $scope.$on('edit-project', function (event, data) {
@@ -383,13 +381,9 @@
         };
 
         self.editTask = function () {
-            if (self.tempTextHeader !== '') {
-                self.textHeader = self.tempTextHeader;
-            }
             self.taskEdit = true;
             $scope.$emit('edit-task', {task_id: self.taskId, taskEdit: self.taskEdit});
-            self.resetForm();
-
+            // self.resetForm();
         };
 
         self.close = function () {
